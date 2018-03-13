@@ -75,7 +75,7 @@ for oct in range(0,16):
         liste2_moy=np.mean(liste2, axis=0) 
      
         
-        for i in range(0,len(liste1_moy)):
+        for i in range(0,len(liste1_moy)): #max à limiter 
           diff=abs(liste1_moy[i] - liste2_moy[i])
           listefinal.append(diff)
           
@@ -103,10 +103,13 @@ plt.clf()
 plt.show()
         
 
-    
        
 
-#chercher une étape dans l'AES qui permet de discriminer une clé
+#13/03
+#créer un dossier et y stocker tous les résulatats qu'on a eu (courbes/clés/points pour n traces)
+#Superposition des courbes avec les 3k points en x et la conso en y 
 
-#numpy faire recherches pour moyenne tableau
-# Après, regarder pour pls bits
+#Etude pour combien de traces minimum pour pouvoir déduire une correlation (si on en prend pas assez on pourrait pas détéerminer la bonne clé => car bruit ++)
+#Limiter le nbr de points à avant l'opération Shiftrow
+
+#Option : interface user-friendly: donner un jeu de traces et trouver la clé (prendre au hasard des traces -avec srand time- parmis les 10k, qui ne se suivent pas forcément)
