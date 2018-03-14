@@ -5,14 +5,15 @@ import numpy as np
 
 
 # renvoie une liste de n indice compris entre 0 et 2999
-def liste_contenu_ale(n,traces=traces):
+def liste_contenu_ale(n):
 	liste_indice=[]
 	Liste_trace=[]
 	Liste_plain_text=[]
+	N_max=len(traces)
 	for i in range(0,n):
-		N=random.randint(0,3000)
+		N=random.randint(0,N_max)
 		while N in liste_indice:
-			N = random.randint(0, 3000)
+			N = random.randint(0, N_max)
 		liste_indice.append(N)
 		Liste_trace.append(traces[N])
 		Liste_plain_text.append(plaintext[N])
@@ -23,10 +24,11 @@ Liste_info_max=[(43, 53 ,0.0120477293996),(126, 118 ,0.0189586853827),(21 ,2113 
 
 def Test_find_min(Nb_traces_deb_test,pourcentage_reussite_successive,traces=traces,plaintext=plaintext):
 	Resultat_des_tests=[]
+	N_max=len(traces)
 
 #	Liste_info_max=test_octect()
 	Sortir_boucle_for=False
-	for n in range(Nb_traces_deb_test,3000):
+	for n in range(Nb_traces_deb_test,N_max):
 		print n
 		liste_indice, Liste_trace, Liste_plain_text=liste_contenu_ale(n)
 		Liste_info_max_local=test_octect(regle_model_subbytes,Liste_plain_text,Liste_trace)
