@@ -24,6 +24,8 @@ table_subbytes=[0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67
 
 print key_real_valu
 
+# contient l'enssemble des indice des pic, et les max par octect de clef
+
 
 
 def model_dicriminant(regle_model,byte_test=0x1,octet_test=0,plaintext=plaintext,traces=traces):
@@ -62,8 +64,10 @@ def model_dicriminant(regle_model,byte_test=0x1,octet_test=0,plaintext=plaintext
         if max_local>max:
             max,point_max=max_local,point_max_local
             cle_pour_max=hyp_cle
+            trace_moy_max=trace_moy_diff
 
-    return cle_pour_max,point_max
+    bruit=np.mean(trace_moy_max)
+    return cle_pour_max,point_max,abs(max-bruit)
 
 def regle_model_subbytes(plaintext,hyp_cle,byte_discriminant=0x1):
     return table_subbytes[plaintext^hyp_cle] & byte_discriminant
@@ -75,8 +79,14 @@ def test_byte(regle_model,octet_test=0,plaintext=plaintext,traces=traces):
     for bytes_test in bytes:
         print  model_dicriminant(regle_model,bytes_test,octet_test,plaintext,traces)
 
-def test_octect(regle_model,plaintext=plaintext,traces=traces):
+def test_octect( regle_model=regle_model_subbytes,plaintext=plaintext,traces=traces):
+    Liste_info_max=[]
     for octet_test in range(0,16):
-        print model_dicriminant(regle_model,0x1,octet_test,plaintext,traces)
+        clef_pour_max, point_max, diff_au_bruit  = model_dicriminant(regle_model,0x1,octet_test,plaintext,traces)
+        Liste_info_max.append((clef_pour_max, point_max,diff_au_bruit))
+        print clef_pour_max, point_max, diff_au_bruit
+    return Liste_info_max
 
-test_octect(regle_model_subbytes)
+
+
+#test_octect(regle_model_subbytes)
