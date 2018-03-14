@@ -11,22 +11,25 @@ def liste_contenu_ale(n,traces=traces):
 	Liste_plain_text=[]
 	for i in range(0,n):
 		N=random.randint(0,3000)
-		while not (N in liste_indice):
+		while N in liste_indice:
 			N = random.randint(0, 3000)
 		liste_indice.append(N)
 		Liste_trace.append(traces[N])
 		Liste_plain_text.append(plaintext[N])
 	return liste_indice,Liste_trace,Liste_plain_text
 
-def Test_find_min(pourcentage_reussite_successive,traces=traces,plaintext=plaintext):
+
+Liste_info_max=[(43, 53 ,0.0120477293996),(126, 118 ,0.0189586853827),(21 ,2113 ,0.0157706155446),(22, 317 ,0.0174460119363),(40 ,453 ,0.013325879048),(174 ,518 ,0.0172781568624),(210 ,2169 ,0.015950494713),(166 ,718 ,0.0179796145757),(171 ,917 ,0.013508896038),(247, 1997 ,0.0193363575042),(21 ,2477 ,0.0182781408814),(136 ,2957, 0.0204488045378),(9 ,1253 ,0.0138573463356),(207, 1781 ,0.0207237858424),(79 ,2265 ,0.0290595265543),(60 ,2742, 0.0359028394679)]
+
+def Test_find_min(Nb_traces_deb_test,pourcentage_reussite_successive,traces=traces,plaintext=plaintext):
 	Resultat_des_tests=[]
 
-	Liste_info_max=test_octect()
+#	Liste_info_max=test_octect()
 	Sortir_boucle_for=False
-	for n in range(0,3000):
+	for n in range(Nb_traces_deb_test,3000):
+		print n
 		liste_indice, Liste_trace, Liste_plain_text=liste_contenu_ale(n)
 		Liste_info_max_local=test_octect(regle_model_subbytes,Liste_plain_text,Liste_trace)
-
 		clef_trouvee=True
 		Enssemble_de_test=[]
 
@@ -55,4 +58,7 @@ def Test_find_min(pourcentage_reussite_successive,traces=traces,plaintext=plaint
 	print Enssemble_de_test[dernier_indice_faux-10:dernier_indice_faux+2]
 	return dernier_indice_faux
 
-Test_find_min(0.005)
+Test_find_min(100,0.005)
+
+# Theoriquement cette algorythme finira par trouver le bon resultat mais cela rique d'etre tres long
+# l ameliorer par recherche de dicotomie avec test de stabilite

@@ -84,7 +84,7 @@ def test_octect( regle_model=regle_model_subbytes,plaintext=plaintext,traces=tra
     for octet_test in range(0,16):
         clef_pour_max, point_max, diff_au_bruit  = model_dicriminant(regle_model,0x1,octet_test,plaintext,traces)
         Liste_info_max.append((clef_pour_max, point_max,diff_au_bruit))
-        print clef_pour_max, point_max, diff_au_bruit
+#        print clef_pour_max, point_max, diff_au_bruit
     return Liste_info_max
 
 
