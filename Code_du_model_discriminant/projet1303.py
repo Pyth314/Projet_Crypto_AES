@@ -9,8 +9,10 @@ Created on Thu Feb 22 17:27:41 2018
 import matplotlib.pyplot as plt
 import numpy as np
 
-traces = np.load("traces.npy")
-pt=np.load("textes.npy")
+pt=np.load("2013.11.14-12.33.38_textin.npy")
+print(len(pt[0]))
+traces = np.load("2013.11.14-12.33.38_traces.npy")
+
 
 
 #plt.plot(traces[0])
@@ -59,7 +61,7 @@ for oct in range(0,16):
         for k in range(0,10000):
 
            
-            s=sbox[pt[k][oct] ^ k_hyp] & 0x5
+            s=sbox[pt[k][oct] ^ k_hyp] & 0x1
             if s==0:
                 liste1.append(traces[k])
             else:
@@ -69,10 +71,10 @@ for oct in range(0,16):
         nb=0
         nb2=0
         liste1_moy =[]
-        liste2_moy=[]   
+        liste2_moy=[]
         listefinal=[]
-        liste1_moy=np.mean(liste1, axis=0)  
-        liste2_moy=np.mean(liste2, axis=0) 
+        liste1_moy=np.mean(liste1, axis=0)
+        liste2_moy=np.mean(liste2, axis=0)
      
         
         for i in range(0,len(liste1_moy)): #max à limiter 
@@ -106,7 +108,7 @@ plt.show()
        
 
 #13/03
-#créer un dossier et y stocker tous les résulatats qu'on a eu (courbes/clés/points pour n traces)
+#créer un dossier et y stocker tous les résultats qu'on a eu (courbes/clés/points pour n traces)
 #Superposition des courbes avec les 3k points en x et la conso en y 
 
 #Etude pour combien de traces minimum pour pouvoir déduire une correlation (si on en prend pas assez on pourrait pas détéerminer la bonne clé => car bruit ++)
